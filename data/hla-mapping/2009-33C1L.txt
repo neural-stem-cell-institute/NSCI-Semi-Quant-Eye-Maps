@@ -1,0 +1,36 @@
+21	7	D	I	0	0	0	0	0	0	U			
+21	8	U	U	0	U	0	0	U	0	D			
+31	1	0	I	0	0	0	U	0	0	U	U	D	
+31	2	I	I	I	0	U	0	U	0	D			
+31	3	0	0	I	0	0	0	0	0	0	0	U	
+31	4	D	D	U	U	0	0	0	0	0	0	U	
+31	5	D	D	D	D	D	D	D	D	D	D	D	
+31	6	D	D	D	D	D	D	D	D	D	D	D	
+31	7	D	D	D	D	D	D	D	D	D	D	D	
+31	8	D	D	D	D	D	D	D	D	D	D	D	
+31	9	D	D	D	D	D	D	D	D	D	D	D	
+41	1	D	D	D	D	D	D	D	D	D	D		
+41	2	D	D	D	D	D	D	D	D	D	D		
+41	3	D	D	D	D	D	D	D	D	D	D		
+41	4	D	D	D	D	D	D	D	D	D	D		
+41	5	D	D	D	D	D	D	D	D	D	D		
+41	6	D	D	D	D	D	D	D	D	D	D		
+41	7	D	D	D	D	D	D	D	D	D	D		
+41	8	D	D	D	D	D	D	D	D	D	D		
+41	9	D	D	D	D	D	D	D	D	D	D		
+51	1	U	0	0	0	0	U	U	U	0	U	U	D
+51	2	0	0	0	0	0	D	U	U	U	D	U	U
+51	3	D	D	D	D	D	D	D	D	D	D	D	D
+51	4	D	D	D	D	D	D	D	D	D	D	D	D
+51	5	0	0	0	U	U	U	U	U	U	0	0	D
+51	6	I	0	0	I	U	U	0	0	U	U	U	D
+51	7	U	0	0	U	0	U	U	U	0	U	0	U
+51	8	U	0	U	0	U	0	U	U	U	U	U	U
+66	1	0	D	D	D	U	U	0	0	0	U	D	
+66	2	0	0	0	0	0	0	0	U	0	U		
+66	3	0	0	0	0	0	0	0	0	0	U		
+66	4	U	0	0	U	U	0	0	D				
+66	5	U	U	0	0	0	0	0	0	0	U		
+66	6	U	0	0	0	0	0	0	0	D	D		
+66	7	U	U	0	0	0	0	0	0	D			
+66	8	0	U	0	0	0	0	0	0	U	D		

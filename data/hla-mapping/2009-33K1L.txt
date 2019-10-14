@@ -1,0 +1,37 @@
+Slide	Section 	IL 1	IL 2	IL 3	IL 4	IL 5	IL 6	IL 7 	IL 8	IL 9	IL 10	IL 11	IL 12
+3	1	0	0	0	0	0	0	0	0				
+3	2	0	0	I	0	0	0	D	D				
+3	3	0	0	0	I	D	0	0	D				
+3	4	U	0	0	U	U	U	D					
+3	5	I	0	0	D	0	D						
+3	6	0	U	0	D	D	0	D					
+3	7	0	0	I	0	0	U	U					
+3	8	0	0	I	0	0	0	0	0	U			
+3	9	0	0	I	0	0	0	0	U				
+3	10	0	0	I	0	0	0	U					
+18	1	I	D	I	0	0	U	U	U	U	U	U	D
+18	2	U	D	I	0	0	0	U	U	0	0	U	
+18	3	0	U	I	0	0	0	0	0	U	0	D	
+18	4	U	U	0	0	0	0	U	U	U	U		
+18	5	U	U	U	U	0	U	0	U	U	D		
+18	6	0	0	0	0	0	0	U	0	U	0	U	
+18	7	U	0	0	0	0	0	U	0	0	U	U	0
+18	8	D	D	0	0	0	0	0	U	0	0	U	D
+18	9	U	U	0	0	0	U	0	0	0	U	U	
+33	1	0	I	0	0	0	0	0D	D	0	0	0	0
+33	2	0	I	0	0	D	D	U	0	0	0	0	0
+33	3	D	0	0	0	0	0	0	U	0	0	0	
+33	4	D	0	0	0	U	U	U	U	0	U	U	U
+33	5	0	I	0	D	U	0	0	U	0	U	U	U
+33	6	0	0	0	0	0	0	0	U	0	0	0	0
+33	7	0	0	0	0	0	U	U	0	0	0	U	U
+33	8	U	U	U	0	0	U	U	0	0	U	0	U
+43	1	U	0	0	0	U	U	D	U	0	0	0	D
+43	2	U	U	U	0	U	0	U	0	0	0	0	D
+43	3	D	0	0	0	U	D	U	U	0	0	U	D
+43	4	U	0	0	U	0	U	D	D	U	U	U	D
+43	5	D	0	U	0	0	D	D	D	U	U	U	D
+43	6	U	0	0	0	U	D	0	U	D	U	U	D
+43	7	D	0	U	0	U	U	U	U	U	U	U	U
+43	8	U	0	0	U	D	D	D	U	U	U	U	D
+43	9	D	U	U	U	U	U	U	U	U	U	U	D

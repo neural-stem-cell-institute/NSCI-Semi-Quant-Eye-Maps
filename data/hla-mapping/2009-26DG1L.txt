@@ -1,0 +1,52 @@
+Slide	Section 	IL 1	IL 2	IL 3	IL 4	IL 5	IL 6	IL 7 	IL 8	IL 9	IL 10	IL 11	IL 12	IL 13	IL 14	IL 15
+39	1	0	0	0	0	0	0	0	U	U	0	0	U	0	0	
+39	2	U	U	I	0	U	U	U	0	U	U	U	U	U		
+39	3	U	U	0	U	0	0	U	U	U	0	0	U	D		
+39	4	U	0	U	0	0	0	0	0	0	0	U	U	0	U	U
+39	5	U	IL 2	U	0	0	U	U	U	U	0	D				
+39	6	U	U	I	0	0	U	0	U	0	0	0	U	U	U	
+39	7	U	U	I	0	0	0	U	0	U	0	0	0	D		
+39	8	U	Y	0	0	0	U	0	U	0	0	U	U	D		
+39	9	U	U	0	IL 4	0	0	0	0	U	0	0	U	U		
+44	1	0	U	0	I	0	0	0	0	0	0	0	0	0	0	
+44	2	0	0	0	I	0	0	0	0	0	0	0	0	U	U	D
+44	3	0	0	0	I	0	0	0	0	0	0	U	U	D		
+44	4	U	U	0	0	0	0	0	0	0	0	0	U	U	U	
+44	5	D	D	U	I	0	0	0	0	0	0	U	D			
+44	6	0	0	0	I	0	0	0	0	0	0	0	D	D	U	
+44	7	0	U	0	I	U	U	0	0	0	0	0	0	0	D	
+44	8	0	U	0	I	0	0	0	0	U	0	0	0	D		
+44	9	U	0	0	I	0	0	0	U	0	0	U	0	U	D	
+49	1	0	U	0	0	0	0	U	0	0	0	0	U	D		
+49	2	U	U	U	0	0	0	0	0	U	0	U	U			
+49	3	0	0	0	0	0	0	0	0	0	0	0	U	U		
+49	4	U	U	U	U	U	U	U	0	U	U	U	D			
+49	5	U	U	0	U	0	U	0	0	D	U	U	0	D		
+49	6	U	U	0	0	0	0	0	0	U	0	0	U	U	D	
+49	7	0	0	U	U	0	0	U	0	U	U	U	D			
+49	8	U	U	D	U	0	0	U	U	U	U	U	U			
+59	1	0	0	0	I	0	D	0	0	0	0	0	0	0	U	U
+59	2	0	0	0	I	0	0	0	U	U	0	0	0	U	0	
+59	3	U	U	0	I	U	U	0	0	0	0	0	0	0	U	D
+59	4	U	U	0	I	0	U	0	0	0	0	0	0	U	U	U
+59	5	U	U	O	U	U	U	U	U	D						
+59	6	0	U	I	I	0	U	U	U	U	0	0	U	U	D	
+59	7	0	0	I	I	U	U	0	0	0	0	0	U	U	U	
+59	8	U	U	I	I	0	0	0	0	0	0	U	D			
+59	9	U	U	I	I	0	0	U	U	U	U	0	U	U	U	
+64	1	0	0	I	0	0	U	0	0	0	0	0	0	U	U	
+64	2	U	0	I	0	U	U	0	0	0	0	0	U	U	U	
+64	3	D	U	I	0	0	0	0	U	0	0	U	U	D		
+64	4	D	D	D	D	D	D	D	D	D	D	D	D	D	D	
+64	5	D	0	I	0	0	U	U	0	U	0	0	U	U		
+64	6	D	0	I	0	0	0	0	0	0	0	0	U	D		
+64	7	0	U	I	I	0	0	0	0	0	0	0	U	U		
+64	8	0	0	I	0	U	0	U	0	0	0	U	U	U		
+69	1	U	IL 2	I	0	U	0	0	0	0	0	U	U	U		
+69	2	U	IL 2	0	U	U	0	U	0	0	U	U	U	U		
+69	3	U	IL 2	I	0	U	0	0	0	0	0	U	U	U	0	
+69	4	D	D	D	D	D	D	D	D	D	D	D	D	D	D	
+69	5	U	U	I	0	U	0	0	0	0	0	0	D			
+69	6	D	U	I	0	U	0	U	0	0	0	0	U	U		
+69	7	D	U	I	0	U	0	U	0	0	0	U	U	U		
+69	8	U	IL 2	I	0	U	0	0	0	0	0	U	U	U		

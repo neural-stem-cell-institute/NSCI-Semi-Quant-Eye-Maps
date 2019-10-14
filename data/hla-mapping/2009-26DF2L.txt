@@ -1,0 +1,62 @@
+Slide	Section 	IL 1	IL 2	IL 3	IL 4	IL 5	IL 6	IL 7 	IL 8	IL 9	IL 10	IL 11	IL 12	IL 13	IL 14	IL 15	IL 16
+38	1	U	I	0	0	0	U	U	0	U	0	0	0	D			
+38	2	U	0	I	U	U	0	0	0	U	0	0	U	U	D		
+38	3	U	U	I	0	0	0	U	U	0	U	U	U	U	D		
+38	4	U	U	I	0	0	0	U	0	U	U	U	U	U	U		
+38	5	U	U	I	U	0	U	U	U	0	U	U	U	D			
+38	6	0	0	I	U	U	0	U	U	U	U	0	U	U	D		
+38	7	U	U	I	0	0	0	0	0	0	U	U	U	U	U		
+38	8	U	0	I	0	0	0	U	U	0	U	U	U	0	U	U	
+38	9	U	U	I	0	0	0	U	U	0	U	U	U	U	D		
+43	1	D	0	I	0	0	0	0	0	0	0	0	U				
+43	2	0	0	0	I	0	0	0	0	0	0	0	U	U	D		
+43	3	U	U	0	I	0	0	0	0	0	0	0	U	D			
+43	4	0	0	I	I	0	0	U	U	U	U	0	0	U	U		
+43	5	U	I	U	0	0	0	0	0	0	0	U	U				
+43	6	0	U	I	I	I	0	D	0	0	0	0	0	0	U	U	D
+43	7	U	U	I	0	0	0	0	0	0	0	U	U	U			
+43	8	D	U	0	I	0	0	0	0	0	0	0	U	U	U		
+43	9	U	I	I	0	0	0	0	0	0	U	U	D				
+48	1	0	U	I	I	0	0	0	U	0	0	0	0	0	U	D	
+48	2	U	U	I	I	0	0	0	U	0	U	0	0	0	0	U	
+48	3	U	U	I	I	0	0	D	D	0	0	0	0	0	U	D	
+48	4	U	0	I	I	0	0	0	U	0	U	0	D	D	U	U	
+48	5	U	U	U	0	0	0	U	0	U	U	U	U	U			
+48	6	0	0	I	I	U	0	U	U	U	U	0	0	0	0	0	
+48	7	D	U	I	I	0	0	0	0	0	0	0	0	0	0		
+48	8	0	U	I	I	0	0	0	U	0	0	0	U	U	0	U	
+48	9	U	U	I	I	0	0	U	U	U	U	0	U	0	U	U	
+53	1	U	U	I	I	0	U	U	0	U	U	U	U	U	0	D	
+53	2	U	0	0	I	0	0	0	0	0	0	0	U	U	D		
+53	3	U	0	I	I	0	0	0	0	0	0	0	U	U	D		
+53	4	D	0	I	0	0	0	0	0	0	0	0	U	U	D		
+53	5	D	D	D	D	D	D	D	D	D	D	D	D	D	D	D	
+53	6	U	0	0	0	0	0	U	U	0	0	0	0	0	U	U	
+53	7	D	U	0	0	0	0	0	0	0	0	0	U	U			
+53	8	0	0	0	I	0	U	U	0	0	0	0	U	U	D		
+53	9	0	0	0	I	0	0	0	0	0	U	U	U	U	D		
+58	1	U	I	0	0	0	U	0	0	0	0	0	0	U	0		
+58	2	U	I	I	0	0	0	0	D	U	U	0	0	U	U		
+58	3	U	I	I	0	U	0	U	0	U	0	0	U	U	D		
+58	4	D	D	I	I	0	0	U	U	D							
+58	5	U	U	I	0	0	0	U	0	U	U	0	0	U	U	0	
+58	6	0	0	I	0	0	0	U	0	U	U	0	0	0	U	0	
+58	7	U	U	I	0	U	U	U	0	0	U	0	0	0	U	U	
+58	8	D	D	I	U	0	0	U	0	0	0	U	0	U	D		
+63	1	U	I	U	U	U	U	U	0	U	U	U					
+63	2	0	I	U	U	U	U	U	U	U	D						
+63	3	D	I	U	U	U	U	U	U	D							
+63	4	D	D	D	D	D	D	D	D	D	D	D	D				
+63	5	D	I	U	0	U	0	U	U	U	0	D					
+63	6	U	I	0	U	U	U	U	0	0	0	U	U				
+63	7	U	I	0	U	U	U	U	U	U							
+63	8	U	I	0	U	U	U	U	U	U	D	D					
+68	1	U	U	U	U	U	U	U	U	U	U	U	U	U			
+68	2	U	I	U	U	0	U	0	U	U	U						
+68	3	U	I	U	0	0	U	U	U	U	U						
+68	4	U	U	U	U	U	U	U	U	U	U	U	U	U			
+68	5	D	D	D	D	D	D	D	D	D	D	D	D	D			
+68	6	U	0	0	0	0	0	U	U	U	U	U	U	U			
+68	7	D	U	U	U	U	0	U	U	U	U	0	U	U			
+68	8	U	I	0	U	0	0	U	U	0	U	U	D				
+68	9	U	U	U	U	U	U	U	U	U	U	U	U	U			

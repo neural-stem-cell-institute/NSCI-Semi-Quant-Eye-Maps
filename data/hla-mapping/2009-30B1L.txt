@@ -1,0 +1,116 @@
+Slide	Section 	IL 1	IL 2	IL 3	IL 4	IL 5	IL 6	IL 7 	IL 8	IL 9	IL 10	IL 11	IL 12
+4	1	U	I	0	0	0	0	0	0	0	0		
+4	2	0	I	0	0	0	0	0	U	0	0		
+4	3	U	I	0	0	0	0	0	U	U			
+4	4	0	0	I	0	0	0	0	0	U	U		
+4	5	0	0	0	0	0	0	U	D				
+4	6	U	I	I	0	0	0	0	U	U			
+4	7	D	D	D	D	D	D	D	D	D	D		
+4	8	D	D	D	D	D	D	D	D	D	D		
+4	9	D	D	D	D	D	D	D	D	D	D		
+9	1	0	0	0	0	0	U	U	U	D			
+9	2	0	0	0	0	0	0	0	D				
+9	3	U	I	0	0	0	0	0	U	D			
+9	4	U	0	I	0	0	0	0	0	0	0	0	
+9	5	D	D	D	D	D	D	D	D	D	D	D	
+9	6	D	0	0	0	0	0	0	D				
+9	7	D	I	I	0	0	0	U	U	D			
+9	8	D	0	I	0	0	0	0	U	D			
+9	9	U	I	0	0	0	0	U	D				
+9	10	U	I	0	0	0	0	U	D				
+14	1	D	I	0	0	0	0	0	U	D			
+14	2	D	I	I	0	0	0	0	0	U	D		
+14	3	D	I	I	0	0	0	0	U	D			
+14	4	I	0	I	0	0	0	0	U	U	D		
+14	5	D	D	D	D	D	D	D	D	D	D		
+14	6	D	0	I	0	0	0	0	0	U	D		
+14	7	U	I	0	0	0	0	0	U	D			
+14	8	U	I	0	0	0	0	U	0	D			
+14	9	U	I	0	0	0	0	0	U	D			
+19	1	D	I	0	0	0	U	D					
+19	2	D	I	0	0	0	0	U	U	D			
+19	3	D	0	I	0	0	0	0	U	U			
+19	4	D	D	0	U	U	U	D					
+19	5	I	I	0	0	0	0	0	U	U			
+19	6	D	I	I	0	0	0	0	U	D			
+19	7	D	U	I	0	0	0	0	0	0	D		
+19	8	D	I	I	0	0	0	0	0	0	D		
+24	1	D	D	I	0	0	0	0	0	0	0	D	
+24	2	D	0	I	0	0	0	0	0	0	U	U	
+24	3	D	D	I	0	0	0	0	0	U	D		
+24	4	D	0	I	0	0	0	0	0	0	D		
+24	5	U	U	U	U	U	U	U	U	U	U	U	
+24	6	D	D	I	0	0	0	0	0	0	D		
+24	7	D	D	D	D	D	D	D	D	D	D	D	
+24	8	D	D	D	D	D	D	D	D	D	D	D	
+24	9	D	D	D	D	D	D	D	D	D	D	D	
+29	1	U	U	U	U	U	U	U	U	U	U	U	
+29	2	0	0	I	0	0	0	0	0	U	0	U	0
+29	3	D	0	I	0	0	0	0	0	0	0	D	
+29	4	D	D	D	D	D	D	D	D	D	D	D	D
+29	5	D	D	D	D	D	D	D	D	D	D	D	D
+29	6	D	D	D	D	D	D	D	D	D	D	D	D
+29	7	0	I	I	0	0	0	0	0	0	0	0	D
+29	8	0	I	0	0	0	0	0	0	0	0	0	D
+29	9	D	I	0	0	0	0	0	0	0	0	0	
+29	10	0	I	0	0	0	0	0	0	0	0	0	
+29	11	0	I	0	0	0	0	0	0	U	U		
+30	1	X	N	X	X	X	X	X	X	X	X		
+30	8	X	N	X	X	X	X	X	X	X	X		
+34	1	0	0	I	0	0	0	D					
+34	2	0	0	I	0	0	0	0	0	D			
+34	3	D	U	I	0	0	0	0	0	D			
+34	4	D	D	D	D	D	D	D	D	D			
+34	5	D	D	D	D	D	D	D	D	D			
+34	6	D	D	I	D	0	D						
+34	7	D	D	D	D	D	D	D	D	D			
+34	8	D	D	D	D	D	D	D	D	D			
+39	1	D											
+39	2	D											
+39	3	D											
+39	4	D											
+39	5	D											
+39	6	D											
+39	7	D											
+39	8	D											
+39	9	D											
+44	1	D	D	I	0	0	0	0	0	0	U	0	
+44	2	D	D	I	0	0	0	0	0	U			
+44	3	D	D	I	0	0	0	0	0	0	0	0	
+44	4	D	D	I	0	0	0	0	0	0	0	0	
+44	5	0	0	0	0	0	0	0	0	U			
+44	6	D	U	0	0	0	0	0	D				
+44	7	D	0	I	0	0	0	0	0	D			
+44	8	0	0	I	0	0	0	0	0	U			
+49	1	D	D	I	0	0	0	0	0	U			
+49	2	D	U	I	0	0	0	0	U	U			
+49	3	D	U	I	0	0	0	0	0	U	D		
+49	4	D	U	I	0	0	0	0	0	0	U	U	D
+49	5	D	U	I	0	0	0	0	0	U	D		
+49	6	D	U	I	0	0	0	U	D				
+49	7	D	U	I	0	0	0	U	U	D			
+49	8	D	U	I	D	0	0	0	U	D			
+54	1	D											
+54	2	D											
+54	3	D											
+54	4	D											
+54	5	D											
+54	6	D											
+54	7	D											
+54	8	D											
+59	1	U	I	0	0	0	0	0	U	D			
+59	2	D	I	0	0	0	0	0	0	D			
+59	3	U	I	0	0	0	0	0	D				
+59	4	U	I	D	0	0	U						
+59	5	D	I	0	0	0	0	0	0	D			
+59	6	D	I	0	0	0	0	0	U	D			
+59	7	D	I	0	0	0	0	0	U				
+59	8	D	U	0	0	0	0	0	U				
+64	1	D	I	0	0	0	0	0	0				
+64	2	D	I	0	0	0	0	U	U				
+64	3	D	I	0	0	0	0	0					
+64	4	D	I	0	0	0	0	U					
+64	5	U	I	0	0	0	0	0	D				
+64	6	D	I	0	0	0	0	0					
+64	7	U	I	0	0	D	0	U					
+64	8	0	I	0	0	0	D						
