@@ -1,0 +1,107 @@
+\documentclass{article}
+\title{Semi-Quantitative Eye Maps for Histological Review}
+\author{Tom Kiehl}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\maketitle{}
+
+<<echo=F>>=
+#load libraries
+library("stringr")
+# Set location of input files
+datadir.prrescue <- "/Users/kiehlt/Documents/career/NSCI/GLP/3002/data"
+datadir <- "/Users/kiehlt/Documents/career/NSCI/GLP/2009/data"
+filelist <- list.files(path=datadir, pattern="*.txt")
+
+# load source code
+source("eyemaps.R")
+
+@
+
+
+\abstract{}
+We present a visual representation of histological data. This approach will be applied for multiple purposes. First, to visualize HLA markers for detemining the extent of cell migration after injection. Second, photo-receptor sparing will be visualized using the same approach.
+
+
+\section{Data Collection}
+Sections are manually reviewed and histological data is collected from stained slides. For the representative problem, eyes were sectioned dorsal to ventral such that each section lies across the nasal/temporal axis. Each section was then manually counted across this axis making histological counts in increments.
+
+Note that there is some variablilty in the ordering of sections by slide and numbers of sections per slide. In our case sections were placed on a slide in one order and imaged/counted in a different order (cut as 1,2,3,4,5,6,7,8 and imaged as 4,3,2,1,8,7,6,5). Given the The ordering of the sections does not noticably impact our ability to visualize the information. Each slide contains 5 to 10 sections. With each section being 5um thick this yields 25 to 50um per slide. Within the constraints of the visualized scale, a reordering of the sections from a particular slide will not make a significant difference in the final visualization.
+
+\subsection{Data SOP's}
+\subsubsection{HLA Mapping}
+HLA Mapping data is aggregated from two sources. The observations are collected from 2009 PRs while the injection site locations are collected from PR 3002s.
+\subsubsection{Photoreceptor Sparing}
+Photoreceptor data and injection site location are collected from the 3002 PRs.
+\section{visualization}
+In order to visualize the data collected across an eye the observations are integrated using the following process. 
+
+\section{Data Formatting}
+
+\begin{enumerate}
+\item Each section is converted to a string representation of the data collected, one character per
+\item These section strings are aligned to their centers
+\item Strings are interepreted and converted to labeled data points on an x,y axis. 
+\item X,Y coordinates are scaled to microns using relevant image-length and known section thicknesses
+\item Coordinates are normalized to a 4mm x 4mm region, scaled to a unit square, circularized to a unit circle then scaled to a 4mm diameter circle
+\item As the observed sections lie very close together the coordinates of the observations are "jittered" to better visualize the entirety of the observations
+\end{enumerate}
+
+
+\section{HLA Mapping}
+HLA Counts
+\begin{table}[]
+\centering
+\begin{tabular}{lll}
+\textbf{Exp 26} & \textbf{Exp 30} & \textbf{Exp 33} \\
+26DB1L & 30B1L & 33A1L \\
+26DC1L & 30D1L & 33A2L \\
+26F2L & 30F1L & 33B2L \\
+26DG1L & 30I1L & 33C1L \\
+26DG2L & 30K1L & 33D2L \\
+& 30M2L & 33H3L \\
+& 30D1L & 33K1L \\
+\end{tabular}
+\caption{Experiments counted for HLA Mapping}
+\end{table}
+
+\section{HLA Figures}
+All of the plots here
+
+<<results=tex, echo=FALSE>>=
+#Get all file names and corresponding labels
+hladatafiles <- list.files(path=datadir, pattern="^2009-[a-z,A-Z,0-9]*.txt")
+plot_labels <- str_remove(hladatafiles, "^2009-")
+plot_labels <- str_remove(plot_labels, "\\.txt$")
+
+#loop over files and create temporary pdfs, then include them
+for(i in 1:length(hladatafiles)){
+	infname <- paste(datadir,hladatafiles[i], sep="/")
+	tmpfname <-paste(datadir, "/" ,plot_labels[i], "-fig", ".pdf", sep="" )
+	pdf(file=tmpfname, width=5, height=5.5)
+	rpe.get.data(infname,title=plot_labels[i] )
+	dev.off()
+	cat("\\begin{center}\n")
+	cat("\\begin{figure}\n")
+	cat("\\includegraphics{", tmpfname, "}\n", sep="")
+	cat("\\caption{Visualization of eye ",  plot_labels[i], "}\n", sep="")
+	cat("\\label{fig:", plot_labels[i], "}\n", sep="")
+	cat("\\end{figure}\n\n")
+	cat("\\end{center}\n")
+	
+}
+
+@
+
+
+\pagebreak
+
+
+
+
+\section{Photoreceptor Sparing}
+
+Insert photoreceptor sparing renderings here.
+
+\end{document}
