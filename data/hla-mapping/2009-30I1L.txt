@@ -65,6 +65,8 @@ Slide	Section 	IL 1	IL 2	IL 3	IL 4	IL 5	IL 6	IL 7 	IL 8	IL 9	IL 10	IL 11	IL 12	I
 34	6	0	D	0	I	0	0	0	D	D	0	0	0	0	
 34	7	0	0	I	I	0	0	0	0	0	0	0	0	0	
 34	8	I	0	0	I	0	0	0	0	0	0	0	0	0	
+38	1	X	X	X	X	X	X	O	X	X	X	X	X	X	
+38	7	X	X	X	X	X	X	O	X	X	X	X	X	X 	
 39	1	0	0	0	0	0	0	0	0	0	0	0	0	0	
 39	2	0	0	I	0	0	U	U	0	0	0	0	0	D	
 39	3	0	0	I	0	0	0	0	0	0	0	0	0	0	

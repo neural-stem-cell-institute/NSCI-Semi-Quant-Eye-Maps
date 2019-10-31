@@ -1,5 +1,8 @@
+Slide	Section 	IL 1	IL 2	IL 3	IL 4	IL 5	IL 6	IL 7 	IL 8	IL 9	IL 10	IL 11	IL 12
 21	7	D	I	0	0	0	0	0	0	U			
 21	8	U	U	0	U	0	0	U	0	D			
+29	1	X	X	X	X	X	O	X	X	X	X	X	X
+29	6	X	X	X	X	X	X	O	X	X	X	X	X
 31	1	0	I	0	0	0	U	0	0	U	U	D	
 31	2	I	I	I	0	U	0	U	0	D			
 31	3	0	0	I	0	0	0	0	0	0	0	U	
@@ -9,6 +12,8 @@
 31	7	D	D	D	D	D	D	D	D	D	D	D	
 31	8	D	D	D	D	D	D	D	D	D	D	D	
 31	9	D	D	D	D	D	D	D	D	D	D	D	
+34	2	X	X	X	X	X	X	N	X	X	X	X	X
+34	6	X	X	X	X	X	X	N	X	X	X	X	X
 41	1	D	D	D	D	D	D	D	D	D	D		
 41	2	D	D	D	D	D	D	D	D	D	D		
 41	3	D	D	D	D	D	D	D	D	D	D		

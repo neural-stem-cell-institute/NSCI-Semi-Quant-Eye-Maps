@@ -1,4 +1,7 @@
 Slide	Section 	IL 1	IL 2	IL 3	IL 4	IL 5	IL 6	IL 7 	IL 8	IL 9	IL 10	IL 11
+30	7	X	X	X	X	X	O	X	X	X	X	X
+35	1	X	X	X	X	X	O	X	X	X	X	X
+35	5	X	X	X	X	O	O	X	X	X	X	X
 67	1	U	0	0	0	0	U	0	0	U	U	
 67	2	0	0	0	0	0	0	0	0	U	U	
 67	3	U	0	0	I	0	0	U	0	0	U	D

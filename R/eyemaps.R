@@ -64,24 +64,188 @@
 
 #Check a directory
 #thefolder <- "/Users/kiehlt/Documents/career/NSCI/GLP/2009/data"
-
+thefile <- "/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/3002-30B1L.txt"
 #get a list of files
 #allfiles <- list.files(thefolder, pattern="\\.txt$")
+rgb2hex <- function(rngnb){
+	sprintf('#%s',paste(as.hexmode(c(rngnb[1],rngnb[2],rngnb[3])),collapse = ''))
+}
 
-rpe.plot.pr.rescue <- function(thefile, title, xlab="X axis", ylab="Y axis"){
+#' Shift values left to right in a vector. This is used when centering the values in a matrix.
+#' 
+shiftrow <- function(vec, shiftn, ignoreleading=0){
+	for (i in length(vec):ignoreleading+1){
+		
+		if(i>shiftn+ignoreleading){
+		    vec[i] <- vec[i-shiftn]
+		} else {
+			vec[i] <- ''
+		}
+	}
 	
-	#Read in the row data
+	return(vec)
 	
-	#
+		
+}
+
+#' Re
+redist <- function(x){
+	(x-min(x))/diff(range(x))
+	}
+
+valuesToLevels <- function(values, levels)
 	
+plotLevelPoints <- function(x, y, value){
+	# could use colorRampPalette and the bias option
+	btoy <- colorRamp(c("blue", "yellow"))
+	print(max(x))
+}
+
+rpe.plot.pr.rescue <- function(thefile, title="Eye Map", totalslides=100, xlab="X axis", ylab="Y axis", threshold=2.0){
+	
+	#Scale/size constants
+	scalefig <- 4000  #changed from 2000, eye has diameter of 4mm
+	sectionthickness <- 5
+	sectionsperslide <- 8
+	imagelength <- 450  #may cut this in 2/3 to handle scaling (from 680)
+	
+	#Read in the eye data
+	eyedata <- read.table(thefile, sep="\t", stringsAsFactors = FALSE)
+
+	#center the sections
+	for (rnum in 1:nrow(eyedata)){
+		#for each row, count the empty values
+		n <- length(which(eyedata[rnum,] ==''))
+		if(n>1){ #only shift if we are actually going to shift
+			n <- floor(n/2)
+			#print(paste("shifting row", rnum, "by", n, "positions."))
+			#shift the existing values by half the number of empty values, 
+			#     - ignoring the first three columns (eye id, slide, section)
+			#     - Assuming empty elements are at the "right end" of the row
+			eyedata[rnum,] <- shiftrow(eyedata[rnum,], shiftn=n, ignoreleading = 3) 
+			}
+		}
+	
+	#create a list of points to plot
+	
+	#convert from (section,slide) to microns of thickness to determine the values on one axis
+	#    Assumes that the rows are slide, section, observation, observation .... etc.
+	#    Ignores the first row, which are labels (eyedata[-1,2])
+	collabels <- eyedata[1,] #retain the column labels in case we need them
+	rowidentifiers <- eyedata[, c(1,2,3)] #retain the row labels for later
+	vertical <- sectionthickness * as.numeric(eyedata[-1,2]) * sectionsperslide + (as.numeric(eyedata[-1,3])*sectionthickness)
+	message("here 1")
+	#adjust vertical to account for "uncounted" sections at top and bottom of eye
+	vertical <- vertical + (scalefig - totalslides*8*5)/2
+	
+	eyedata <- eyedata[-1,c(-1,-2,-3)] #drop the row with the column labels and the columns with row identifiers
+	
+	imagelength <- scalefig/ncol(eyedata) * 1.1 #scale the imagelength based on the number of columns in eyedata
+	
+	#find locations of injection site (ignoring the first three columns)
+	is <- which(eyedata[,]=="N", arr.ind=TRUE)
+	#isloc <- c(mean(is[,1]), mean(is[,2]))
+			 
+	#find locations of optic nerve
+	on <- which(eyedata[,]=="O", arr.ind=TRUE)
+	#onloc <- c(mean(on[,1]), mean(on[,2]))
+	
+	#which rows have either injection site or optic nerve
+	isonrows <- unique(c(is[,1], on[,1]))
+	message("here 2")
+	#remove rows with injection site and optic nerve
+	eyedata <- eyedata[-isonrows,] 
+	message("here 2a")
+	#Convert to array x,y values (get the locations for each point)
+	points <- which(eyedata!='', arr.ind=TRUE)
+	message("here 3")
+	#get values and scale to 0..1 range
+	values <- as.numeric(eyedata[points])
+	
+	#zero out values below threshold
+	values[which(values<threshold)] <- 0.0  # NEW
+	
+	values <- values/max(values)
+	
+	#Convert x,y to grid coordinates (vertical still contains rows with is and on)
+	points[,1] <- vertical[-isonrows][points[,1]]  #convert x to eye coords based on section thicknesses
+     points[,2] <- points[,2]*imagelength #convert y grid to eye coords based on image lengths
+     message("here 5")
+     #TODO: figure out coords for injection site and optic nerve
+     isloc <- c(mean(vertical[is[,1]]), mean(is[,2])*imagelength)
+     onloc <- c(mean(vertical[on[,1]]), mean(on[,2])*imagelength)		 
+     #isloc <- c(mean(is[,1]), mean(is[,2]))
+     #onloc <- c(mean(on[,1]), mean(on[,2]))
+
+     #convert points to unit grid
+     
+     #scale section dimension (dorsal/ventral) based on total sections or known proportion
+     maxdim.section <- max(scalefig, max(points[,1])) # (TODO: determine specifics for each eye)This scaling max defines the spread of the sections in the final vizualization
+     #scale image length dimension (nasal/temporal) based on the longest section, with the most image lengths
+     maxdim.imglngth <- max(scalefig, max(points[,2]))
+     
+     points[,1] <- ((points[,1]/maxdim.section) *2) -1
+	points[,2] <- ((points[,2]/maxdim.imglngth) *2) -1
+	
+	isloc[1] <- ((isloc[1]/maxdim.section) *2) -1
+	isloc[2] <- ((isloc[2]/maxdim.imglngth) *2) -1
+	onloc[1] <- ((onloc[1]/maxdim.section) *2) -1
+	onloc[2] <- ((onloc[2]/maxdim.imglngth) *2) -1
+	
+	#jitter the points
+	points <- jitter(points, amount=0.05)
+	message("here")
+	#Circularize the points
+	#    negative signs rotate to proper orientation for visualization
+	pmat  <- matrix(rpe.circularize(-points[,2], -points[,1]), ncol=2) #swapped 2 and 1 here
+	message("here")
+	ismat <- matrix(rpe.circularize(-isloc[2], -isloc[1]), ncol=2)
+	message("here")
+	onmat <- matrix(rpe.circularize(-onloc[2], -onloc[1]), ncol=2)
+
+	message("here")
+
+	
+     #Find the levels to be plotted and associate colors with them
+     #pick our set of colors
+	btoy <- colorRamp(c("yellow", "red"))
+	pcolors <- apply(round(btoy(values)), 1, rgb2hex)
+	
+	#color cells below threshold - didn't work at this stage
+	#    since the values in values had been normalized
+	#pcolors[which(values<threshold)] <- "#ffffff"
+	
+	ppallette <- colorRampPalette(c("magenta", "plum1", "white", "paleturquoise1", "navy"))
+
+	#plot the background
+	rpe.viz(plotscale=1 * 2000)
+
+	
+	#plot the points
+	points(pmat* 2000,pch=19, cex=0.75, col=pcolors)
+	
+	
+	#Plot the Injection Site
+	points(ismat* 2000,pch=13, cex=2.5, lwd=2.0, col="blue")
+	
+	#Plot the optic nerve
+	points(onmat* 2000,pch=13, cex=2.5, lwd=2.0, col="green")
+
+     cols <- colorRampPalette(c("magenta", "plum1", "white", "paleturquoise1", "navy"))	
+     breaks <- (c(-1, 0, 1, 2, 3, 4))
+     levels(factor(eyedata[eyedata!='']))
+     
+     #associate colors with the levels
+	return(eyedata)
 	
 }
-rpe.get.data <- function(thefile, title, xlab="Image Length", ylab="Section") {
+
+rpe.get.data <- function(thefile, title, totalslides=100, xlab="Image Length", ylab="Section") {
+	## Plots HLA Tracking data
 	##
 	##
 	##
-	##
-	scalefig <- 2000
+	scalefig <- 4000
 	sectionthickness <- 5
 	sectionsperslide <- 8
 	imagelength <- 680
@@ -93,10 +257,14 @@ rpe.get.data <- function(thefile, title, xlab="Image Length", ylab="Section") {
 			header = TRUE
 		)
 	thedata[is.na(thedata)] <- "" #get rid of any dangling NA's
-	
-	#convert from (section,slide) to microns of thickness to determine the values on one axis
-	vertical <- sectionthickness * thedata[,1] * sectionsperslide + (thedata[,2]*sectionthickness)
 
+	#convert from (section,slide) to microns of thickness to determine the values on one axis
+	#    Assumes that the rows are: slide, section, observation, observation .... etc.
+	vertical <- sectionthickness * as.numeric(thedata[,1]) * sectionsperslide + (as.numeric(thedata[,2])*sectionthickness)
+ 
+	#adjust vertical to account for "uncounted" sections at top and bottom of eye ADDED
+	vertical <- vertical + (scalefig - totalslides* 8*5)/2
+	
 	#concatenate all of the imagelength annotations for each slide
 	vals <- do.call(paste0, thedata[, 3:ncol(thedata)])
 	#print(vals)
@@ -113,8 +281,13 @@ rpe.get.data <- function(thefile, title, xlab="Image Length", ylab="Section") {
 	## Split out to separate columns
 	extsplt <- str_split(extended, pattern = "")
 	
-	finmat <- do.call("cbind", extsplt)
+	finmat <- do.call("cbind", extsplt) #finmat each column is a section, rows are imagelengths
+     
+	#datmat <- do.call("rbind", extsplt) #extmat, each row is a section  10/25
 	
+	## Update: make sure we're scaled properly in the imagelength direction	
+	imagelength <- scalefig/nrow(finmat) #10/25
+	#imagelength <- scalefig/ncol(datmat) #10/25
 	#  Key:
 	
 	#       X = Filled to keep all centered (magenta, 0)
@@ -145,7 +318,7 @@ rpe.get.data <- function(thefile, title, xlab="Image Length", ylab="Section") {
 		
 	#find the coordinates of each label
 	
-	five <- which(finmat=="5", arr.ind=TRUE)
+	five <- which(finmat=="5", arr.ind=TRUE) #the columns of 5 are coordinates in (imagelength)
 	centroid <- cbind(five[,1], vertical[five[,2]])
 	#plotfive <- cbind(five[,1], vertical[five[,2]])
 	centroid[,1] <- centroid[,1] * imagelength
@@ -171,45 +344,52 @@ rpe.get.data <- function(thefile, title, xlab="Image Length", ylab="Section") {
 	maxrange <- (ncol(thedata)-2) * imagelength
 	
 	#plot the background
-	rpe.viz(plotscale=scalefig)
-
+	rpe.viz(plotscale=2000) #todo: change to -1,+1 range
+      
+	#Note: in the below circularization steps the negative
+	#    signs rotate to proper orientation for visualization
+	
+	#TODO: confirm that section and imagelength dimensions are being normalized to respective max values
+	#scale section dimension (dorsal/ventral) based on total sections or known proportion
+	#maxdim.section <- max(scalefig, max(points[,1])) # (TODO: determine specifics for each eye)This scaling max defines the spread of the sections in the final vizualization
+	#scale image length dimension (nasal/temporal) based on the longest section, with the most image lengths
+	#maxdim.imglngth <- max(scalefig, max(points[,2]))
+	
 	pme <- ((plotone/maxrange) * 2) -1  #convert values to a unit grid (2x2)
-	cmat <- matrix(rpe.circularize(pme[,2], pme[,1]),ncol=2) #transform values to a unit circle (radius=1)
+	#pme[,c(1,2)] <- pme[,c(2,1)] #reorient TODO: double check this
+	
+	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2) #transform values to a unit circle (radius=1)
 	cmat <- jitter(cmat, amount=0.05) #jitter the points to reduce overlap
 	#matplot(cmat[,1], cmat[,2], pch=19, col="navy")
-	points(cmat * scalefig,pch=19, cex=0.75, col="plum1")
+	points(cmat * scalefig/2,pch=19, cex=0.75, col="plum1")
 	
 	pme <- ((plottwo/maxrange) * 2) -1
-	cmat <- matrix(rpe.circularize(pme[,2], pme[,1]),ncol=2)
+	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2)
 	cmat <- jitter(cmat, amount=0.05)
 	#matplot(cmat[,1], cmat[,2], pch=19, col="navy")
-	points(cmat * scalefig,pch=19, cex=0.75,col="white")
+	points(cmat * scalefig/2,pch=19, cex=0.75,col="white")
 	
 	pme <- ((plotthree/maxrange) * 2) -1
-	cmat <- matrix(rpe.circularize(pme[,2], pme[,1]),ncol=2)
+	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2)
 	cmat <- jitter(cmat, amount=0.05)
 	#matplot(cmat[,1], cmat[,2], pch=19, col="navy")
-	points(cmat * scalefig,pch=19, cex=0.75,col= rgb(175/255,238/255,238/255, alpha=0.5)) #"paleturquoise1)"
+	points(cmat * scalefig/2,pch=19, cex=0.75,col= rgb(175/255,238/255,238/255, alpha=0.5)) #"paleturquoise1)"
 	
 	#convert the values to a unit square "diameter" = 2
 	pme <- ((plotfour/maxrange) * 2) -1
-	cmat <- matrix(rpe.circularize(pme[,2], pme[,1]),ncol=2)
+	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2)
 	cmat <- jitter(cmat, amount=0.05)
 	#matplot(cmat[,1], cmat[,2], pch=19, col="navy")
-	points(cmat * scalefig,pch=19, cex=0.75,col="navy")
+	points(cmat * scalefig/2,pch=19, cex=0.75,col="navy")
 	
 	# Circle the Injection site
 	#convert the values to a unit square "diameter" = 2
 	pme <- ((centroid/maxrange) * 2) -1
-	cmat <- matrix(rpe.circularize(pme[,2], pme[,1]),ncol=2)
+	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2)
 	#matplot(cmat[,1], cmat[,2], pch=19, col="navy")
-	points(cmat * scalefig,pch=13, cex=2.5, lwd=2.0, col="yellow")
+	points(cmat * scalefig/2,pch=13, cex=2.5, lwd=2.0, col="yellow")
 	
-	#shift to center on origin
-	
-	#circularize
-	
-	four <- cbind(vertical, four[,1])
+	#four <- cbind(vertical, four[,1])
 	#which(finmat=="")
 		
 	#return(finmat)
@@ -230,7 +410,7 @@ rpe.circularize <- function(ex, ey){
 	#         http://squircular.blogspot.com/2015/09/mapping-circle-to-square.html      
 	#         https://www.xarg.org/2017/07/how-to-map-a-square-to-a-circle/
 	#         https://stackoverflow.com/questions/1621831/how-can-i-convert-coordinates-on-a-square-to-coordinates-on-a-circle
-	#
+	# Assumes the data is already layed out on a unit square
 	cx <- ex * sqrt(1-((ey * ey)/2))
 	cy <- ey * sqrt(1-((ex * ex)/2))
 	return(c(cx, cy))
@@ -258,8 +438,14 @@ rpe.viz <- function(plotscale=1){
 	circpoints <- circpoints * plotscale
 	
 	#plot the random points
-	matplot(circpoints[,1], circpoints[,2], pch=19, col="#BBBBBB", cex=2.5, 
-		   ylab="Dorsal(Image Length um)", xlab = "Nasal (Section)K")
+	matplot(circpoints[,1], circpoints[,2], pch=19, col="#D3D3D3", cex=2.5,
+		   xlab="", ylab="")
+#		   ylab="Dorsal(Image Length um)", xlab = "Nasal (Section)K")
+	mtext(text="Dorsal", side=3, line=0, outer=FALSE)
+	mtext(text="Ventral", side=1, line=2, outer=FALSE)
+	mtext(text="Nasal", side=2, line=2, outer=FALSE)
+	mtext(text="Temporal", side=4, line=0, outer=FALSE)
+	
 	
 	#Do this again with a different gray tone to fill in that background
 	exs <- runif(2500)*2 -1
@@ -267,7 +453,7 @@ rpe.viz <- function(plotscale=1){
 	eucpoints <- matrix(exs, ncol=2)
 	circpoints <- matrix(rpe.circularize(exs, eys), ncol=2)
 	#matplot(circpoints[,1], circpoints[,2], pch=19, col="#CCCCCC", cex=1.5)
-     points(circpoints * plotscale, pch=19,col="#DDDDDD", cex=1.5)
+     points(circpoints * plotscale, pch=19,col="#E7E7E7", cex=1.5)
 }
 
 rpe.render <- function(){

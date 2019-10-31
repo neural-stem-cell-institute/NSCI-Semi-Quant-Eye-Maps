@@ -9,6 +9,8 @@ Slide	Section 	IL 1	IL 2	IL 3	IL 4	IL 5	IL 6	IL 7 	IL 8	IL 9	IL 10	IL 11	IL 12
 3	8	0	0	I	0	0	0	0	0	U			
 3	9	0	0	I	0	0	0	0	U				
 3	10	0	0	I	0	0	0	U					
+16	4	X	N	X	X	X	X	X	X	X	X	X	X  
+16	8	X	N	X	X	X	X	X	X	X	X	X	X  
 18	1	I	D	I	0	0	U	U	U	U	U	U	D
 18	2	U	D	I	0	0	0	U	U	0	0	U	
 18	3	0	U	I	0	0	0	0	0	U	0	D	
@@ -18,7 +20,7 @@ Slide	Section 	IL 1	IL 2	IL 3	IL 4	IL 5	IL 6	IL 7 	IL 8	IL 9	IL 10	IL 11	IL 12
 18	7	U	0	0	0	0	0	U	0	0	U	U	0
 18	8	D	D	0	0	0	0	0	U	0	0	U	D
 18	9	U	U	0	0	0	U	0	0	0	U	U	
-33	1	0	I	0	0	0	0	0D	D	0	0	0	0
+33	1	0	I	0	0	0	0	0	D	0	0	0	0
 33	2	0	I	0	0	D	D	U	0	0	0	0	0
 33	3	D	0	0	0	0	0	0	U	0	0	0	
 33	4	D	0	0	0	U	U	U	U	0	U	U	U
@@ -26,6 +28,10 @@ Slide	Section 	IL 1	IL 2	IL 3	IL 4	IL 5	IL 6	IL 7 	IL 8	IL 9	IL 10	IL 11	IL 12
 33	6	0	0	0	0	0	0	0	U	0	0	0	0
 33	7	0	0	0	0	0	U	U	0	0	0	U	U
 33	8	U	U	U	0	0	U	U	0	0	U	0	U
+36	1	X	X	X	X	X	X	O	X	X	X	X	X
+36	6	X	X	X	X	X	X	O	X	X	X	X	X
+41	2	X	X	X	X	X	X	X	O	X	X	X	X
+41	6	X	X	X	X	X	X	O	X	X	X	X	X
 43	1	U	0	0	0	U	U	D	U	0	0	0	D
 43	2	U	U	U	0	U	0	U	0	0	0	0	D
 43	3	D	0	0	0	U	D	U	U	0	0	U	D
