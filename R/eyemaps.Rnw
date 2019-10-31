@@ -20,6 +20,7 @@ filelist <- list.files(path=hladatadir, pattern="*.txt")
 # Load eye/section count 
 #sectioncounts <- read.table(paste(datadir, "/slidecounts.txt", sep=""))
 sectioncounts <- read.table(paste(datadir, "/slidecounts.txt", sep=""), header=TRUE, sep="\t", row.names=1)
+default.sectioncounts <- 81
 # load source code
 source("eyemaps.R")
 
@@ -35,9 +36,9 @@ Sections are manually reviewed and histological data is collected from stained s
 
 Note that there is some variablilty in the ordering of sections by slide and numbers of sections per slide. In our case sections were placed on a slide in one order and imaged/counted in a different order (cut as 1,2,3,4,5,6,7,8 and imaged as 4,3,2,1,8,7,6,5). Given the ordering of the sections does not noticably impact our ability to visualize the information. Each slide contains 5 to 10 sections. With each section being 5um thick this yields 25 to 50um per slide. Within the constraints of the visualized scale, a reordering of the sections from a particular slide will not make a significant difference in the final visualization.
 
-\subsection{Data SOP's}
+\subsection{Data Standard Operating Procedures(SOPs)}
 \subsubsection{HLA Mapping}
-HLA Mapping data is aggregated from two sources. The observations are collected from 2009 PRs while the injection site locations are collected from 3002 records.
+HLA Mapping data is aggregated from two sources. The observations are collected from 2009 Procedure Records (PRs) while the injection site locations are collected from 3002 PRs.
 \subsubsection{Photoreceptor Sparing}
 Photoreceptor data and injection site location are collected from the 3002 PRs.
 \section{Visualization}
@@ -60,7 +61,7 @@ HLA Counts contribute to the following figures.
 \begin{table}[]
 \centering
 \begin{tabular}{ll}
- \textbf{Exp 30} & \textbf{Exp 33} \\
+ \textbf{Exp 30, P90 RCS Rats} & \textbf{Exp 33, P150 RCS Rats} \\
 30B1L & 33A1L \\
 30D1L & 33A2L \\
 30F1L & 33B2L \\
@@ -75,12 +76,12 @@ HLA Counts contribute to the following figures.
 \section{Eye Section Counts}
 <<sectioncounts, results=tex, echo=FALSE>>=
 
-print(xtable(sectioncounts, label=c("sectioncounttable"), caption="Number of sections collected per eye."))
+print(xtable(sectioncounts, label=c("sectioncounttable"), caption=paste0("Total number of sections comprising each eye, including discarded sections from start and end extents. Eyes with unspecified total sections will use a default of ", default.sectioncounts, " sections.These values are used to scale and orient the eye map rendering along the Dorsal/Ventral axis")))
 @
 
 \newpage
 
-\section{HLA Figures for Efficacy Studies - Experiments 30 and 33}
+\section{HLA Figures for Efficacy Studies - Experiments 30 (P90 RCS Rats) and 33(P150 RCS Rats)}
 All of the plots here use the following conventions. 
 \begin{enumerate}
 \item Yellow crossed circles indicate the relative location injection site
@@ -105,12 +106,17 @@ for(i in 1:length(hladatafiles)){
 	pdf(file=tmpfname, width=5, height=5.5)
 	eyeid <- plot_labels[i]
 	
-	rpe.get.data(infname,title=plot_labels[i], totalslides=sectioncounts[eyeid,1] )
+	expstr <- ifelse(grepl("33", eyeid), "P150 RCS Rat", "P90 RCS Rat") #determine which experiment to conditionally determine part of the caption
+	
+	#how many total sections was this eye cut into
+	eyesections <- ifelse(is.na(sectioncounts[eyeid,1]), default.sectioncounts,sectioncounts[eyeid,1] )
+	
+	rpe.get.data(infname,title=plot_labels[i], totalslides=eyesections )
 	dev.off()
 	cat("\\begin{center}\n")
 	cat("\\begin{figure}\n")
 	cat("\\includegraphics{", tmpfname, "}\n", sep="")
-	cat("\\caption{Visualization of HLA mapping in eye ", eyeid, "}\n", sep="")
+	cat("\\caption{Visualization of HLA mapping in eye ", eyeid, ", ", expstr, "}\n", sep="")
 	cat("\\label{fig:", plot_labels[i], "}\n", sep="")
 	cat("\\end{figure}\n\n")
 	cat("\\end{center}\n")
@@ -127,7 +133,7 @@ for(i in 1:length(hladatafiles)){
 
 
 
-\section{Photoreceptor Sparing figures for Efficacy Studies - Experiments 30 and 33}
+\section{Photoreceptor Sparing figures for Efficacy Studies - Experiments 30 (P90 RCS Rats) and 33 (P150 RCS Rats)}
 For these renderings it was assumed that the sections counted generally spanned the whole eye sample. As such, the counted sections are layed out across the full width of the representative eye map image.
 
 All of the plots here use the following conventions. 
@@ -148,15 +154,22 @@ for(i in 1:length(prdatafiles)){
 	base::message(paste0("Processing file: ", prdatafiles[i]))
 	infname <- paste(prdatadir, prdatafiles[i], sep="/")
 	tmpfname <-paste(prdatadir, "/" ,plot_labels[i], "-fig", ".pdf", sep="" )
-	#print(tmpfname)
-	#print(infname)
+	eyeid <- plot_labels[i]
+
+
+	expstr <- ifelse(grepl("33", plot_labels[i]), "P150 RCS Rat", "P90 RCS Rat") #determine which experiment to conditionally determine part of the caption
+	
 	pdf(file=tmpfname, width=5, height=5.5)
-	rpe.plot.pr.rescue(infname,title=plot_labels[i], totalslides=sectioncounts[eyeid,1],xlab="X axis", ylab="Y axis" )
+	
+	#how many total sections was this eye cut into
+	eyesections <- ifelse(is.na(sectioncounts[eyeid,1]), default.sectioncounts,sectioncounts[eyeid,1] )
+	#	message(paste0("Eye ID: ", plot_labels[i], ", ", eyeid, ", sections:", eyesections))
+	rpe.plot.pr.rescue(infname,title=plot_labels[i], totalslides=eyesections,xlab="X axis", ylab="Y axis" )
 	dev.off()
 	cat("\\begin{center}\n")
 	cat("\\begin{figure}\n")
 	cat("\\includegraphics{", tmpfname, "}\n", sep="")
-	cat("\\caption{Visualization of photoreceptor sparing in eye ",  plot_labels[i], "}\n", sep="")
+	cat("\\caption{Visualization of photoreceptor sparing in eye ",  plot_labels[i],", ", expstr, "}\n", sep="")
 	cat("\\label{fig:", plot_labels[i], "}\n", sep="")
 	cat("\\end{figure}\n\n")
 	cat("\\end{center}\n")
@@ -172,12 +185,12 @@ HLA Counts were collected for the following eyes.
 \begin{table}[]
 \centering
 \begin{tabular}{l}
-\textbf{Exp 26} \\
-26DB1L  \\
-26DC1L \\
-26F2L \\
-26DG1L  \\
-26DG2L \\
+\textbf{Exp 26 (RNU Rats Terminated at 9 Months) } \\
+26DB1L -  Injected with 20\% RPE and 80\% EMT cells \\
+26DC1L - Injected with 20\% RPE and 80\% EMT cells \\
+26F2L - Injected with 100\% RPE and 0\% EMT cells \\
+26DG1L -  Injected with 0\% RPE and 100\% EMT cells  \\
+26DG2L -  Injected with 0\% RPE and 100\% EMT cells\\
 \end{tabular}
 \caption{Experiments counted for HLA Mapping}
 \end{table}
@@ -197,13 +210,23 @@ for(i in 1:length(hladatafiles)){
 	tmpfname <-paste(hladatadir, "/" ,plot_labels[i], "-fig", ".pdf", sep="" )
 	pdf(file=tmpfname, width=5, height=5.5)
 	eyeid <- plot_labels[i]
+
+	moretxt <- ""	
+	moretxt <- ifelse(grepl("26DB1L", eyeid), " RNU rat  injected with 20\\% RPE and 80\\% EMT cells. Animal terminated at 9 months.", moretxt)
+	moretxt <- ifelse(grepl("26DC1L", eyeid), " RNU rat injected with 20\\% RPE and 80\\% EMT cells. Animal terminated at 9 months.", moretxt)
+	moretxt <- ifelse(grepl("26DF2L", eyeid), " RNU rat injected with 100\\% RPE and 0\\% EMT cells. Animal terminated at 9 months.", moretxt)
+	moretxt <- ifelse(grepl("26DG1L", eyeid), " RNU rat injected with 0\\% RPE and 100\\% EMT cells. Animal terminated at 9 months.", moretxt)
+	moretxt <- ifelse(grepl("26DG2L", eyeid), " RNU rat injected with 0\\% RPE and 100\\% EMT cells. Animal terminated at 9 months.", moretxt)
 	
-	rpe.get.data(infname,title=plot_labels[i], totalslides=sectioncounts[eyeid,1] )
+	#how many total sections was this eye cut into
+	eyesections <- ifelse(is.na(sectioncounts[eyeid,1]), default.sectioncounts,sectioncounts[eyeid,1] )
+	
+	rpe.get.data(infname,title=plot_labels[i], totalslides=eyesections )
 	dev.off()
 	cat("\\begin{center}\n")
 	cat("\\begin{figure}\n")
 	cat("\\includegraphics{", tmpfname, "}\n", sep="")
-	cat("\\caption{Visualization of HLA mapping in eye ", eyeid, "}\n", sep="")
+	cat("\\caption{Visualization of HLA mapping in eye ", eyeid, ",", moretxt, "}\n", sep="")
 	cat("\\label{fig:", plot_labels[i], "}\n", sep="")
 	cat("\\end{figure}\n\n")
 	cat("\\end{center}\n")

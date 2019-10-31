@@ -65,6 +65,7 @@
 #Check a directory
 #thefolder <- "/Users/kiehlt/Documents/career/NSCI/GLP/2009/data"
 thefile <- "/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/3002-30B1L.txt"
+nsci.jitteramount <- 0.02
 #get a list of files
 #allfiles <- list.files(thefolder, pattern="\\.txt$")
 rgb2hex <- function(rngnb){
@@ -134,7 +135,7 @@ rpe.plot.pr.rescue <- function(thefile, title="Eye Map", totalslides=100, xlab="
 	collabels <- eyedata[1,] #retain the column labels in case we need them
 	rowidentifiers <- eyedata[, c(1,2,3)] #retain the row labels for later
 	vertical <- sectionthickness * as.numeric(eyedata[-1,2]) * sectionsperslide + (as.numeric(eyedata[-1,3])*sectionthickness)
-	message("here 1")
+
 	#adjust vertical to account for "uncounted" sections at top and bottom of eye
 	vertical <- vertical + (scalefig - totalslides*8*5)/2
 	
@@ -152,13 +153,13 @@ rpe.plot.pr.rescue <- function(thefile, title="Eye Map", totalslides=100, xlab="
 	
 	#which rows have either injection site or optic nerve
 	isonrows <- unique(c(is[,1], on[,1]))
-	message("here 2")
+
 	#remove rows with injection site and optic nerve
 	eyedata <- eyedata[-isonrows,] 
-	message("here 2a")
+
 	#Convert to array x,y values (get the locations for each point)
 	points <- which(eyedata!='', arr.ind=TRUE)
-	message("here 3")
+
 	#get values and scale to 0..1 range
 	values <- as.numeric(eyedata[points])
 	
@@ -170,7 +171,7 @@ rpe.plot.pr.rescue <- function(thefile, title="Eye Map", totalslides=100, xlab="
 	#Convert x,y to grid coordinates (vertical still contains rows with is and on)
 	points[,1] <- vertical[-isonrows][points[,1]]  #convert x to eye coords based on section thicknesses
      points[,2] <- points[,2]*imagelength #convert y grid to eye coords based on image lengths
-     message("here 5")
+
      #TODO: figure out coords for injection site and optic nerve
      isloc <- c(mean(vertical[is[,1]]), mean(is[,2])*imagelength)
      onloc <- c(mean(vertical[on[,1]]), mean(on[,2])*imagelength)		 
@@ -193,17 +194,17 @@ rpe.plot.pr.rescue <- function(thefile, title="Eye Map", totalslides=100, xlab="
 	onloc[2] <- ((onloc[2]/maxdim.imglngth) *2) -1
 	
 	#jitter the points
-	points <- jitter(points, amount=0.05)
-	message("here")
+	points <- jitter(points, amount=nsci.jitteramount)
+
 	#Circularize the points
 	#    negative signs rotate to proper orientation for visualization
 	pmat  <- matrix(rpe.circularize(-points[,2], -points[,1]), ncol=2) #swapped 2 and 1 here
-	message("here")
+
 	ismat <- matrix(rpe.circularize(-isloc[2], -isloc[1]), ncol=2)
-	message("here")
+
 	onmat <- matrix(rpe.circularize(-onloc[2], -onloc[1]), ncol=2)
 
-	message("here")
+
 
 	
      #Find the levels to be plotted and associate colors with them
@@ -359,26 +360,26 @@ rpe.get.data <- function(thefile, title, totalslides=100, xlab="Image Length", y
 	#pme[,c(1,2)] <- pme[,c(2,1)] #reorient TODO: double check this
 	
 	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2) #transform values to a unit circle (radius=1)
-	cmat <- jitter(cmat, amount=0.05) #jitter the points to reduce overlap
+	cmat <- jitter(cmat, amount=nsci.jitteramount) #jitter the points to reduce overlap
 	#matplot(cmat[,1], cmat[,2], pch=19, col="navy")
 	points(cmat * scalefig/2,pch=19, cex=0.75, col="plum1")
 	
 	pme <- ((plottwo/maxrange) * 2) -1
 	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2)
-	cmat <- jitter(cmat, amount=0.05)
+	cmat <- jitter(cmat, amount=nsci.jitteramount)
 	#matplot(cmat[,1], cmat[,2], pch=19, col="navy")
 	points(cmat * scalefig/2,pch=19, cex=0.75,col="white")
 	
 	pme <- ((plotthree/maxrange) * 2) -1
 	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2)
-	cmat <- jitter(cmat, amount=0.05)
+	cmat <- jitter(cmat, amount=nsci.jitteramount)
 	#matplot(cmat[,1], cmat[,2], pch=19, col="navy")
 	points(cmat * scalefig/2,pch=19, cex=0.75,col= rgb(175/255,238/255,238/255, alpha=0.5)) #"paleturquoise1)"
 	
 	#convert the values to a unit square "diameter" = 2
 	pme <- ((plotfour/maxrange) * 2) -1
 	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2)
-	cmat <- jitter(cmat, amount=0.05)
+	cmat <- jitter(cmat, amount=nsci.jitteramount)
 	#matplot(cmat[,1], cmat[,2], pch=19, col="navy")
 	points(cmat * scalefig/2,pch=19, cex=0.75,col="navy")
 	
