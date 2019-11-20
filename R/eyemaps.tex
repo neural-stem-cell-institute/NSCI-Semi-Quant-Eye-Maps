@@ -14,7 +14,7 @@ We present a visual representation of histological data. This approach will be a
 
 
 \section{Data Collection}
-Sections are manually reviewed and histological data is collected from stained slides. For the representative problem, eyes were sectioned dorsal to ventral such that each section spans the nasal/temporal axis. Each section was then manually counted along this axis making histological counts in increments (image lengths and segment).
+Sections are manually reviewed and histological data is collected from stained slides. For the representative problem, eyes were sectioned dorsal to ventral such that each section spans the nasal/temporal axis. Each section was then manually counted along this axis making histological observations in increments (image lengths and segment).
 
 Note that our data collection procedures resulted in some variability in the ordering of sections by slide and numbers of sections per slide. In our case sections were placed on a slide in one order and imaged/counted in a different order (cut as 1,2,3,4,5,6,7,8 and imaged as 4,3,2,1,8,7,6,5). Given the ordering of the sections, this does not noticably impact our ability to visualize the information. Each slide contains 5 to 10 sections. With each section being 5um thick this yields 25 to 50um per slide. Within the constraints of the visualized scale, a reordering of the sections from a particular slide will not make a significant difference in the final visualization.
 
@@ -39,7 +39,7 @@ In order to visualize the data collected across an eye the observations are inte
 
 \clearpage
 \section{HLA Mapping}
-HLA observation contribute to the following figures. 
+HLA observations contribute to the following figures. 
 \begin{table}[]
 \centering
 \begin{tabular}{lll}
@@ -58,7 +58,7 @@ HLA observation contribute to the following figures.
 \section{Eye Section Counts}
 
 % latex table generated in R 3.5.3 by xtable 1.8-4 package
-% Wed Nov 20 10:21:49 2019
+% Wed Nov 20 14:59:56 2019
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrr}
@@ -98,19 +98,20 @@ HLA observation contribute to the following figures.
    \hline
 \end{tabular}
 \caption{Total number of sections comprising each eye, including discarded sections from start and end extents. Eyes with unspecified total sections will use a default of 81 sections.These values are used to scale and orient the eye map rendering along the Dorsal/Ventral axis} 
-\label{sectioncounttable}
-\end{table}The table included here (table \ref{tab:sectioncounttable}) 
+\label{tab:sectioncounttable}
+\end{table}The table included here (table \ref{tab:sectioncounttable}) indicates the expected number and total number of sections collected for each eye. These values are used in order to properly orient the visual representation of each section relative the vertical axis of the generated representive eye maps.
 \clearpage
 
 \section{HLA Figures for Efficacy Studies - Experiments 30 (P90 RCS Rats) and 33(P150 RCS Rats)}
 All of the plots here use the following conventions. 
 \begin{enumerate}
-\item Yellow crossed circles indicate the relative location injection site
-\item Green crossed circles indicate the relative location of the optic nerve
-\item Navy points indicate that human cells were identified at that relative location
-\item White points indicate locations of unobservable portions of a section
-\item Pink points indicate locations that were damaged or otherwise not countend
-\item Cyan points indicate absence of human cells at observed location
+\item Yellow crossed circles indicate the relative location injection site.
+\item Green crossed circles indicate the relative location of the optic nerve.
+\item Navy points indicate that human cells were identified at that relative location.
+\item White points indicate locations of unobservable portions of a section.
+\item Pink points indicate locations that were damaged or otherwise not counted.
+\item Cyan points indicate absence of human cells at observed location.
+\item Green crossed circles indicate relative location of the optic nerve.
 \end{enumerate}
 
 \begin{center}
@@ -230,8 +231,9 @@ All of the plots here use the following conventions.
 \begin{enumerate}
 \item Blue crossed circles indicate the relative location injection site
 \item Green crossed circles indicate the relative location of the optic nerve
-\item Yellow points indicate locations with below threshold rescue observations
-\item Orange to Red points indicate quatified rescue above threshold with relative maximum values for the eye in question in Red.
+\item Other points colored on a continuous scale from zero to maximum value observed in each eye (white, yellow, red, purple respectively)
+%\item Yellow points indicate locations with below threshold rescue observations
+%\item Orange to Red points indicate quantified rescue above threshold with relative maximum values for the eye in question in Red.
 \end{enumerate}
 \begin{center}
 \begin{figure}
@@ -483,9 +485,9 @@ All of the plots here use the following conventions.
 \end{center}\newpage
 
 \section{Experiment 26 - Validation}
-Note that no 3002 records were available for experiment 26. As such, only HLA figures area generated here and the injection site and optic nerve are not labeled.
+Note that no 3002 records were available for experiment 26. As such,tghe injection site and optic nerve are not labeled. Only the HLA observations are rendered herein.
 \subsection{HLA Figures for Validation Study - Experiment 26}
-HLA Counts were collected for the following eyes.
+HLA observations were collected for the following eyes.
 \begin{table}[]
 \centering
 \begin{tabular}{l}
@@ -497,9 +499,10 @@ HLA Counts were collected for the following eyes.
 26DG2L -  Injected with 0\% RPE and 100\% EMT cells\\
 \end{tabular}
 \caption{Experiments counted for HLA Mapping}
+\label{tab:exp26}
 \end{table}
 
-All of the plots here use follow the same conventions as the above HLA plots. Total number of sections comprising each eye can be found in the above table 2.
+All of the plots here use follow the same conventions as the above HLA plots. Total number of sections comprising each eye can be found in the above table \ref{tab:sectioncounttable}.
 
 \begin{center}
 \begin{figure}

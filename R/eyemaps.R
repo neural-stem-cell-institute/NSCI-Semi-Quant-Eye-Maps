@@ -1,4 +1,4 @@
-#   Code for generating a visual map of human cell migratin
+#   Code for generating a visual map of human cell migrating within the eye
 #  TODO:
 #      - convert to markup
 #      - (re)capture all data from 20090PR's and injection sites from 2008PR's
@@ -59,7 +59,15 @@
 #    what if the injection site annotation doesn't match between 2008PR and 2009PR?
 #    what to do with gaps in the recorded data on 2009PR?
 #
-
+# Note that the scale for each eye is independent so the maximal value (regardless of how small)
+#    will always appear purple. In the case of these two the maximum value is 2, and it appears 
+#    that values close to this are distributed across the eye. Note that this effect is even more
+#    apparent in some of the visualizations for experiment 36 (such as figures 33, 35,36,37, 38 
+#    and 43) where the maximal values range from 1 to 1.5 and similarly appear to be distributed 
+#    evenly across the figures. Furthermore, note that our method of counting in these cases does 
+#    not distinguish between a single cell and a contiguous line of cells comprising a single layer.
+#    Each of these cases would be counted as "1" as the maximal layer depth.
+#
 # TODOs:
 #    - make dots bigger
 #    - don't cut off the threshold
@@ -349,6 +357,9 @@ rpe.get.data <- function(thefile, title, totalslides=100, xlab="Image Length", y
 	finmat[finmat == "I"] <- "4"
 	# replace N
 	finmat[finmat == "N"] <- "5"
+	# replace O
+	finmat[finmat == "O"] <- "6"
+	
 
 	
 	#pick our set of colors
@@ -360,9 +371,13 @@ rpe.get.data <- function(thefile, title, totalslides=100, xlab="Image Length", y
 	
 	five <- which(finmat=="5", arr.ind=TRUE) #the columns of 5 are coordinates in (imagelength)
 	centroid <- cbind(five[,1], vertical[five[,2]])
-	#plotfive <- cbind(five[,1], vertical[five[,2]])
 	centroid[,1] <- centroid[,1] * imagelength
-	centroid <- cbind(mean(centroid[,1]), mean(centroid[,2]))
+	centroid <- cbind(mean(centroid[,1]), mean(centroid[,2])) #find injection site centroid
+	
+	six <- which(finmat=="6", arr.ind=TRUE) #the columns of 6 are coordinates in (imagelength)
+	oncentroid <- cbind(six[,1], vertical[six[,2]]) 
+	oncentroid[,1] <- oncentroid[,1] * imagelength
+	oncentroid <- cbind(mean(oncentroid[,1]), mean(oncentroid[,2])) #find optic nerve centroid
 	
 	four <- which(finmat=="4", arr.ind = TRUE)
 	plotfour <- cbind(four[,1],vertical[four[,2]])
@@ -426,13 +441,14 @@ rpe.get.data <- function(thefile, title, totalslides=100, xlab="Image Length", y
 	#convert the values to a unit square "diameter" = 2
 	pme <- ((centroid/maxrange) * 2) -1
 	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2)
-	#matplot(cmat[,1], cmat[,2], pch=19, col="navy")
 	points(cmat * scalefig/2,pch=13, cex=2.5, lwd=2.0, col="yellow")
 	
-	#four <- cbind(vertical, four[,1])
-	#which(finmat=="")
-		
-	#return(finmat)
+	# Circle the Injection site
+	#convert the values to a unit square "diameter" = 2
+	pme <- ((oncentroid/maxrange) * 2) -1
+	cmat <- matrix(rpe.circularize(-pme[,1], -pme[,2]),ncol=2)
+	points(cmat * scalefig/2,pch=13, cex=2.5, lwd=2.0, col="green")
+	
 }
 
 #rpe.plot(paste(thefolder, allfiles[1], sep="/"), title=allfiles[1])
@@ -509,16 +525,17 @@ rpe.render <- function(){
 
 rpe.addLegend <- function(maxval=4){
 	if(nsci.useglobalmax){maxval <- nsci.globalmax.prrescue}
-		
+	maxval <- round(maxval, digits=2)	
 	lgd_ = rep(NA, 5)
 #	lgd_[c(1,10)] = c(maxval, "< threshold")
 		lgd_[c(1,10)] = c(maxval, 0)
-	legend(x = -2000, y = -1700,
+	legend(x = -2000, y = -1500,
 		  legend = lgd_,
 		  fill = colorRampPalette(colors = c( 'purple','red', 'yellow','white'))(10),
 		  border = NA,
+		  bg="white",
 		  y.intersp = 0.2,
-		  cex = 0.5, text.font = 1.3)
+		  cex = 0.85, text.font = 1.3)
 	
 }
 
