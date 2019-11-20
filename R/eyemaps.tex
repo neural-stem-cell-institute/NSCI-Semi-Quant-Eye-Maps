@@ -1,5 +1,5 @@
 \documentclass{article}
-\title{Semi-Quantitative Eye Maps for Histological Review}
+\title{DRAFT: Semi-Quantitative Eye Maps for Histological Review}
 \author{Tom Kiehl}
 
 \usepackage{Sweave}
@@ -10,19 +10,19 @@
 
 
 \abstract{}
-We present a visual representation of histological data. This approach will be applied for multiple purposes. First, to visualize HLA markers for detemining the extent of cell migration after injection. Second, photo-receptor sparing will be visualized using the same approach.
+We present a visual representation of histological data. This approach will be applied for multiple purposes. First, to visualize HLA markers for determining the extent of cell migration after injection. Second, photo-receptor sparing will be visualized using the same approach.
 
 
 \section{Data Collection}
-Sections are manually reviewed and histological data is collected from stained slides. For the representative problem, eyes were sectioned dorsal to ventral such that each section spans the nasal/temporal axis. Each section was then manually counted along this axis making histological counts in increments (image lengths).
+Sections are manually reviewed and histological data is collected from stained slides. For the representative problem, eyes were sectioned dorsal to ventral such that each section spans the nasal/temporal axis. Each section was then manually counted along this axis making histological counts in increments (image lengths and segment).
 
-Note that there is some variablilty in the ordering of sections by slide and numbers of sections per slide. In our case sections were placed on a slide in one order and imaged/counted in a different order (cut as 1,2,3,4,5,6,7,8 and imaged as 4,3,2,1,8,7,6,5). Given the ordering of the sections does not noticably impact our ability to visualize the information. Each slide contains 5 to 10 sections. With each section being 5um thick this yields 25 to 50um per slide. Within the constraints of the visualized scale, a reordering of the sections from a particular slide will not make a significant difference in the final visualization.
+Note that our data collection procedures resulted in some variability in the ordering of sections by slide and numbers of sections per slide. In our case sections were placed on a slide in one order and imaged/counted in a different order (cut as 1,2,3,4,5,6,7,8 and imaged as 4,3,2,1,8,7,6,5). Given the ordering of the sections, this does not noticably impact our ability to visualize the information. Each slide contains 5 to 10 sections. With each section being 5um thick this yields 25 to 50um per slide. Within the constraints of the visualized scale, a reordering of the sections from a particular slide will not make a significant difference in the final visualization.
 
 \subsection{Data Standard Operating Procedures(SOPs)}
 \subsubsection{HLA Mapping}
 HLA Mapping data is aggregated from two sources. The observations are collected from 2009 Procedure Records (PRs) while the injection site locations are collected from 3002 PRs.
 \subsubsection{Photoreceptor Sparing}
-Photoreceptor data and injection site location are collected from the 3002 PRs.
+Photoreceptor data and respective injection site location are collected from the 3002 PRs.
 \section{Visualization}
 Each eye is visualized against a representative gray circle. This circle simply helps to orient the viewer to the potential scope of the eye and the orientation of the observations made within the context of that representative eye.
 
@@ -37,27 +37,28 @@ In order to visualize the data collected across an eye the observations are inte
 \item As the observed sections lie very close together the coordinates of the observations are "jittered" to better visualize the entirety of the observations
 \end{enumerate}
 
-
+\clearpage
 \section{HLA Mapping}
-HLA Counts contribute to the following figures. 
+HLA observation contribute to the following figures. 
 \begin{table}[]
 \centering
-\begin{tabular}{ll}
- \textbf{Exp 30, P90 RCS Rats} & \textbf{Exp 33, P150 RCS Rats} \\
+\begin{tabular}{lll}
+ \textbf{P90 RCS Rats} & \textbf{P150 RCS Rats} \\
 30B1L & 33A1L \\
 30D1L & 33A2L \\
 30F1L & 33B2L \\
 30I1L & 33C1L \\
 30K1L & 33D2L \\
 30M2L & 33H3L \\
-30D1L & 33K1L \\
+ & 33K1L \\
 \end{tabular}
 \caption{Experiments counted for HLA Mapping}
 \end{table}
 
 \section{Eye Section Counts}
+
 % latex table generated in R 3.5.3 by xtable 1.8-4 package
-% Thu Oct 31 11:22:14 2019
+% Wed Nov 20 10:21:49 2019
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrr}
@@ -82,12 +83,24 @@ HLA Counts contribute to the following figures.
   26DG2L &  93 &  81 \\ 
   26DG1L &  90 &  81 \\ 
   26DC1L &  90 &  81 \\ 
+  36aA3L &  72 &  81 \\ 
+  36aB3L &  75 &  81 \\ 
+  36aC3L &  75 &  81 \\ 
+  36aE2L &  75 &  81 \\ 
+  36aF2L &  75 &  81 \\ 
+  36aF3L &  75 &  81 \\ 
+  36aG1L &  75 &  81 \\ 
+  36aG3L &  75 &  81 \\ 
+  36aH1L &  75 &  81 \\ 
+  36bI2L &  75 &  81 \\ 
+  36bK2L &  75 &  81 \\ 
+  36bL3L &  75 &  81 \\ 
    \hline
 \end{tabular}
 \caption{Total number of sections comprising each eye, including discarded sections from start and end extents. Eyes with unspecified total sections will use a default of 81 sections.These values are used to scale and orient the eye map rendering along the Dorsal/Ventral axis} 
 \label{sectioncounttable}
-\end{table}
-\newpage
+\end{table}The table included here (table \ref{tab:sectioncounttable}) 
+\clearpage
 
 \section{HLA Figures for Efficacy Studies - Experiments 30 (P90 RCS Rats) and 33(P150 RCS Rats)}
 All of the plots here use the following conventions. 
@@ -205,7 +218,7 @@ All of the plots here use the following conventions.
 
 \end{center}
 
-\pagebreak
+\clearpage
 
 
 
@@ -369,6 +382,102 @@ All of the plots here use the following conventions.
 \includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/33K1L-fig.pdf}
 \caption{Visualization of photoreceptor sparing in eye 33K1L, P150 RCS Rat}
 \label{fig:33K1L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36aA3L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36aA3L, P180 RCS Rat}
+\label{fig:36aA3L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36aB3L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36aB3L, P180 RCS Rat}
+\label{fig:36aB3L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36aC3L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36aC3L, P180 RCS Rat}
+\label{fig:36aC3L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36aE2L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36aE2L, P180 RCS Rat}
+\label{fig:36aE2L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36aF2L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36aF2L, P180 RCS Rat}
+\label{fig:36aF2L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36aF3L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36aF3L, P180 RCS Rat}
+\label{fig:36aF3L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36aG1L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36aG1L, P180 RCS Rat}
+\label{fig:36aG1L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36aG3L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36aG3L, P180 RCS Rat}
+\label{fig:36aG3L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36aH1L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36aH1L, P180 RCS Rat}
+\label{fig:36aH1L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36bI2L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36bI2L, P180 RCS Rat}
+\label{fig:36bI2L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36bK2L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36bK2L, P180 RCS Rat}
+\label{fig:36bK2L}
+\end{figure}
+
+\end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/36bL2L-fig.pdf}
+\caption{Visualization of photoreceptor sparing in eye 36bL2L, P180 RCS Rat}
+\label{fig:36bL2L}
 \end{figure}
 
 \end{center}\newpage

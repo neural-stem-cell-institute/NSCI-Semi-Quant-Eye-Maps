@@ -60,12 +60,23 @@
 #    what to do with gaps in the recorded data on 2009PR?
 #
 
+# TODOs:
+#    - make dots bigger
+#    - don't cut off the threshold
+#    - Try coloring categorically for photoreceptor rescue
+#    - 0.0 is a color, perhaps white 
+#    - scale each experiment?
+#    - different scale per experiment
+#    - potentially change the iteration so we iterate by experiment or eye and can group each eye's images together.
+
 
 
 #Check a directory
 #thefolder <- "/Users/kiehlt/Documents/career/NSCI/GLP/2009/data"
 thefile <- "/Users/kiehlt/Documents/github-projects/RSCC-Eye-Maps/data/pr-rescue/3002-30B1L.txt"
-nsci.jitteramount <- 0.02
+nsci.jitteramount <- 0.05
+nsci.globalmax.prrescue <- 7.4 #TODO: add check to make sure actual data isn't more than globally defined max
+nsci.useglobalmax <- FALSE
 #get a list of files
 #allfiles <- list.files(thefolder, pattern="\\.txt$")
 rgb2hex <- function(rngnb){
@@ -102,17 +113,21 @@ plotLevelPoints <- function(x, y, value){
 	print(max(x))
 }
 
-rpe.plot.pr.rescue <- function(thefile, title="Eye Map", totalslides=100, xlab="X axis", ylab="Y axis", threshold=2.0){
+rpe.plot.pr.rescue <- function(thefile, title="Eye Map", totalslides=100, xlab="X axis", ylab="Y axis", threshold=2.0, usethreshold=FALSE){
 	
 	#Scale/size constants
 	scalefig <- 4000  #changed from 2000, eye has diameter of 4mm
 	sectionthickness <- 5
 	sectionsperslide <- 8
 	imagelength <- 450  #may cut this in 2/3 to handle scaling (from 680)
+	dotsize <- 1.25 #size of the plotted points (cex in points)
 	
+	#Define set of colors for plotting the range
+	btoy <- colorRamp(c("white", "yellow", "red", "purple"))
+	message("before read.table")
 	#Read in the eye data
 	eyedata <- read.table(thefile, sep="\t", stringsAsFactors = FALSE)
-
+	message("after read.table")
 	#center the sections
 	for (rnum in 1:nrow(eyedata)){
 		#for each row, count the empty values
@@ -163,11 +178,32 @@ rpe.plot.pr.rescue <- function(thefile, title="Eye Map", totalslides=100, xlab="
 	#get values and scale to 0..1 range
 	values <- as.numeric(eyedata[points])
 	
+	#capture the actual maximum value before normalization and before thresholding
+	maxval <- max(values) #lastedit
+	
 	#zero out values below threshold
-	values[which(values<threshold)] <- 0.0  # NEW
+	if(usethreshold){ #lastedit
+		values[which(values<threshold)] <- 0.0  # NEW
+	}
 	
-	values <- values/max(values)
 	
+	#count the number below threshold, if it's the same as the total number than don't do this.
+	#  Can't do this calculation if all the values are zero
+message("here")
+	
+	if(usethreshold){   #lastedit
+	if(length(which(values<threshold)) < length(values)){
+		 if(nsci.useglobalmax){
+		 	values <- ifelse(values >0, (values-threshold)/(nsci.globalmax.prrescue-threshold), values) #subtracting out threshold so the color range is scaled nicely starting at the threshold value
+		 	# values <- values/nsci.globalmax.prrescue.threshold
+		 }else{
+		    values <- ifelse(values >0, (values-threshold)/(max(values-threshold)))#subtracting out threshold so the color range is scaled nicely starting at the threshold value
+		 	# values <- values/max(values) 
+		 }
+	}}else{
+	values<- values/maxval  #lastedit
+}
+	message(paste0("here..." , min(values), ", ", max(values)))
 	#Convert x,y to grid coordinates (vertical still contains rows with is and on)
 	points[,1] <- vertical[-isonrows][points[,1]]  #convert x to eye coords based on section thicknesses
      points[,2] <- points[,2]*imagelength #convert y grid to eye coords based on image lengths
@@ -207,9 +243,9 @@ rpe.plot.pr.rescue <- function(thefile, title="Eye Map", totalslides=100, xlab="
 
 
 	
-     #Find the levels to be plotted and associate colors with them
-     #pick our set of colors
-	btoy <- colorRamp(c("yellow", "red"))
+
+	
+	#Determine colors for each point based on previously defined colorRamp
 	pcolors <- apply(round(btoy(values)), 1, rgb2hex)
 	
 	#color cells below threshold - didn't work at this stage
@@ -223,8 +259,10 @@ rpe.plot.pr.rescue <- function(thefile, title="Eye Map", totalslides=100, xlab="
 
 	
 	#plot the points
-	points(pmat* 2000,pch=19, cex=0.75, col=pcolors)
+	points(pmat* 2000,pch=19, cex=dotsize, col=pcolors)
 	
+	#make a legend
+	rpe.addLegend(maxval = maxval)
 	
 	#Plot the Injection Site
 	points(ismat* 2000,pch=13, cex=2.5, lwd=2.0, col="blue")
@@ -311,6 +349,7 @@ rpe.get.data <- function(thefile, title, totalslides=100, xlab="Image Length", y
 	finmat[finmat == "I"] <- "4"
 	# replace N
 	finmat[finmat == "N"] <- "5"
+
 	
 	#pick our set of colors
 	breaks <- (c(-1, 0, 1, 2, 3, 4))
@@ -467,3 +506,19 @@ rpe.render <- function(){
 	
 	#overlay observations
 }
+
+rpe.addLegend <- function(maxval=4){
+	if(nsci.useglobalmax){maxval <- nsci.globalmax.prrescue}
+		
+	lgd_ = rep(NA, 5)
+#	lgd_[c(1,10)] = c(maxval, "< threshold")
+		lgd_[c(1,10)] = c(maxval, 0)
+	legend(x = -2000, y = -1700,
+		  legend = lgd_,
+		  fill = colorRampPalette(colors = c( 'purple','red', 'yellow','white'))(10),
+		  border = NA,
+		  y.intersp = 0.2,
+		  cex = 0.5, text.font = 1.3)
+	
+}
+
