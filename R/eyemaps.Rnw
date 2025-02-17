@@ -162,13 +162,13 @@ for(i in 1:length(prdatafiles)){
 
 	expstr <- ifelse(grepl("36", plot_labels[i]), "P180 RCS Rat",  ifelse(grepl("33", plot_labels[i]), "P150 RCS Rat", "P90 RCS Rat")) #determine which experiment to conditionally determine part of the caption, defaut condition is experiment 30
 	
-	pdf(file=tmpfname, width=5, height=5.5)
+	pdf(file=tmpfname, width=5, height=4.0)  ##note for contours we use a height of 4.0 for eye maps we use 5.5
 	
 	#how many total sections was this eye cut into
 	eyesections <- ifelse(is.na(sectioncounts[eyeid,1]), default.sectioncounts,sectioncounts[eyeid,1] )
 	message(paste0(" Section count: ", eyesections))
 	#	message(paste0("Eye ID: ", plot_labels[i], ", ", eyeid, ", sections:", eyesections))
-	rpe.plot.pr.rescue(infname,title=plot_labels[i], totalslides=eyesections,xlab="X axis", ylab="Y axis" )
+	rpe.plot.pr.rescue(infname,title=plot_labels[i], totalslides=eyesections,xlab="X axis", ylab="Y axis" , ascontour=TRUE)
 	dev.off()
 	cat("\\begin{center}\n")
 	cat("\\begin{figure}\n")
